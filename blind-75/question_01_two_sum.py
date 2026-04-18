@@ -33,6 +33,10 @@ class MySolution:
                     return [i, j]
 
 
+# Brute-force solution: checks each pair of numbers, so the time complexity is O(n^2).
+# It uses only a constant amount of extra space, so the space complexity is O(1).
+
+
 def _test_cases() -> None:
     # ----------- Example : 01 ---------
     nums = [2, 7, 11, 15]
