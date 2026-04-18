@@ -22,16 +22,6 @@ Output: [0,1]
 """
 
 
-# class MySolution:
-#     def two_sum(self, nums: list[int], target: int) -> list[int]:
-#         for i in range(len(nums)):
-#             num1 = nums[i]
-#             for j in range(i + 1, len(nums)):
-#                 num2 = nums[j]
-#                 if target == num1 + num2:
-#                     return [i, j]
-
-
 class MySolution:
     def two_sum(self, nums: list[int], target: int) -> list[int]:
         lenght_of_list = len(nums)
@@ -43,7 +33,7 @@ class MySolution:
                     return [i, j]
 
 
-def _test_cases():
+def _test_cases() -> None:
     # ----------- Example : 01 ---------
     nums = [2, 7, 11, 15]
     target = 9
