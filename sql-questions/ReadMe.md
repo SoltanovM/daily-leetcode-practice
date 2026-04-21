@@ -23,4 +23,6 @@ docker run --name leetcode \
   -d postgres:16.0
 ```
 
+CONNECTION_STRING='postgresql://username:leetcode23@localhost:5433/leetcodedb'
+
 After the container is running, you can create the tables required for each LeetCode question and use the database to write and test your queries locally.
