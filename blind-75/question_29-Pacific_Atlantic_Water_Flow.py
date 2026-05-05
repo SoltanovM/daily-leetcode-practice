@@ -164,7 +164,72 @@ class MySolution:
 
 class NeedCodeSolution:
     def pacificAtlantic(self, heights: list[list[int]]) -> list[list[int]]:
-        return
+        """
+        The main idea is to reverse the perspective to efficiently determine reachability.
+
+        Instead of checking every cell to see if it can reach the oceans, you start from
+        the edges of the grid—where the water is already at the ocean—and perform a
+        Depth First Search (DFS) moving "upstream" toward higher or equal ground.
+
+        Mark reachability: Run two separate traversals, one starting from the
+        Pacific borders (top/left) and one from the Atlantic borders (bottom/right).
+
+        Use Hash Sets: Keep track of which cells can reach each ocean using two separate hash sets.
+
+        Identify Intersections: Once both traversals are complete, any cell present in both hash sets is a valid result,
+        as it can reach both oceans.
+        This approach is efficient with a time complexity of O(N * M),
+        as it avoids redundant computations by processing each cell only as needed.
+        """
+
+        no_rows = len(heights)
+        no_columns = len(heights[0])
+        visited_pacific = set()
+        visited_atlantic = set()
+
+        def dfs(row: int, col: int, visited: set, prev_height: int):
+            if (
+                (row, col) in visited
+                or row < 0
+                or col < 0
+                or row == no_rows
+                or col == no_columns
+                or heights[row][col] < prev_height
+            ):
+                return
+            visited.add((row, col))
+            dfs(row + 1, col, visited, heights[row][col])
+            dfs(row - 1, col, visited, heights[row][col])
+            dfs(row, col + 1, visited, heights[row][col])
+            dfs(row, col - 1, visited, heights[row][col])
+
+        for col_index in range(no_columns):
+            dfs(0, col_index, visited_pacific, heights[0][col_index])
+            dfs(
+                no_rows - 1,
+                col_index,
+                visited_atlantic,
+                heights[no_rows - 1][col_index],
+            )
+
+        for row_index in range(no_rows):
+            dfs(row_index, 0, visited_pacific, heights[row_index][0])
+            dfs(
+                row_index,
+                no_columns - 1,
+                visited_atlantic,
+                heights[row_index][no_columns - 1],
+            )
+
+        result = []
+        for row in range(no_rows):
+            for column in range(no_columns):
+                if (row, column) in visited_pacific and (
+                    row,
+                    column,
+                ) in visited_atlantic:
+                    result.append([row, column])
+        return result
 
 
 def _test_cases() -> None:
@@ -178,16 +243,20 @@ def _test_cases() -> None:
     ]
     output = [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]
     assert MySolution().pacificAtlantic(heights) == output
+    assert NeedCodeSolution().pacificAtlantic(heights) == output
 
     # Example 2:
     heights = [[1]]
     output = [[0, 0]]
     assert MySolution().pacificAtlantic(heights) == output
+    assert NeedCodeSolution().pacificAtlantic(heights) == output
 
     # Example 3:
     heights = [[1, 1], [1, 1], [1, 1]]
     output = MySolution().pacificAtlantic(heights)
+    assert NeedCodeSolution().pacificAtlantic(heights) == output
 
     # Example 4:
     heights = [[1, 2, 3], [8, 9, 4], [7, 6, 5]]
     output = MySolution().pacificAtlantic(heights)
+    output = NeedCodeSolution().pacificAtlantic(heights)
