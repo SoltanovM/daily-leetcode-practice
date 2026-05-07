@@ -27,6 +27,33 @@ SELECT
     id + 1 as adjusted_ids,
     num
 FROM Q180.Logs;
+
+SELECT *
+FROM Q180.Logs;
+
+SELECT 
+    -- t1.id AS id,
+    -- t1.num AS num,
+    -- t1.id+1 AS next_id,
+    -- t2.num AS next_num,
+    -- t1.id+2 AS next_next_id,
+    -- t3.num AS next_next_num
+    t1.num AS ConsecutiveNums
+FROM Q180.Logs AS t1
+LEFT JOIN Q180.Logs AS t2 ON t1.id+1 = t2.id
+LEFT JOIN Q180.Logs AS t3 ON t1.id+2 = t3.id
+WHERE t1.num = t2.num AND t1.num = t3.num;
+
+
+
+SELECT 
+    DISTINCT(t1.num) AS ConsecutiveNums
+FROM Logs AS t1
+LEFT JOIN Logs AS t2 ON t1.id+1 = t2.id
+LEFT JOIN Logs AS t3 ON t1.id+2 = t3.id
+WHERE t1.num = t2.num AND t1.num = t3.num;
+
+
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------

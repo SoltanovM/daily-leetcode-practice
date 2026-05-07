@@ -33,7 +33,7 @@ For example, given the above Employee table, the query should return 200 as the 
 If there is no second highest salary, then the query should return null.
 ''';
 ----------------------------- My Solution: ------------------------------
-# Write your MySQL query statement below
+-- # Write your MySQL query statement below
 WITH RANKED_SALARIES AS (
     SELECT Salary,
         DENSE_RANK() OVER (

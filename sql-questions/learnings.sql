@@ -14,7 +14,8 @@
 -- DENSE_RANK() is a window function that displays the number of a given row, 
 -- starting at one and following the ORDER BY sequence of the window function, 
 -- with identical values receiving the same result. Unlike the RANK() function, 
--- there are no skipped values if the preceding results are identical. It is also similar to the 
+-- there are no skipped values if the preceding results are identical. 
+-- It is also similar to the 
 --------------------
 -- ROW_NUMBER(): 
 --------------------
